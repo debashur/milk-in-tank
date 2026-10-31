@@ -14,4 +14,9 @@ return [
     'yiisoft/db-sqlite' => [
         'dsn' => new Dsn(databaseName: dirname(__DIR__, 2) . '/runtime/database.sqlite'),
     ],
+
+    'yiisoft/db-migration' => [
+        'newMigrationNamespace' => 'App\\Migration',
+        'sourceNamespaces' => ['App\\Migration'],
+    ],
 ];
