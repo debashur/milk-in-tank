@@ -19,4 +19,12 @@ return [
         'newMigrationNamespace' => 'App\\Migration',
         'sourceNamespaces' => ['App\\Migration'],
     ],
+
+    // Где лежат PHP-атрибуты OpenAPI. Кэш спецификации не включаем:
+    // без cacheTTL описание перечитывается при каждом открытии страницы.
+    'yiisoft/yii-swagger' => [
+        'annotation-paths' => [
+            '@src/Api',
+        ],
+    ],
 ];

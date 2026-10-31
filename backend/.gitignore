@@ -27,3 +27,6 @@ c3.php
 
 # Local environment configuration
 .env
+
+# CSS и JS Swagger, которые Yii копирует в public при первом открытии страницы
+/public/assets
