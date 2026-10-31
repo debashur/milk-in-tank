@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Migration;
 
+use App\Milk\TankState;
 use Yiisoft\Db\Constant\ReferentialAction;
 use Yiisoft\Db\Constraint\ForeignKey;
 use Yiisoft\Db\Migration\MigrationBuilder;
@@ -18,20 +19,22 @@ final class M261031181800CreateMilkTables implements RevertibleMigrationInterfac
 
         $b->createTable('tank', [
             'id' => $column::primaryKey(),
-            'capacity' => $column::integer()->notNull()->check('capacity = 300'),
+            'capacity' => $column::integer()->notNull()->check(
+                'capacity >= 1 AND capacity <= ' . TankState::MAX_CAPACITY,
+            ),
         ]);
 
         for ($id = 1; $id <= 5; ++$id) {
             $b->insert('tank', [
                 'id' => $id,
-                'capacity' => 300,
+                'capacity' => TankState::MAX_CAPACITY,
             ]);
         }
 
         $b->createTable('pour', [
             'id' => $column::primaryKey(),
             'person_name' => $column::string(100)->notNull()->check('length(person_name) BETWEEN 1 AND 100'),
-            'liters' => $column::integer()->notNull()->check('liters >= 1 AND liters <= 300'),
+            'liters' => $column::integer()->notNull()->check('liters >= 1 AND liters <= ' . TankState::MAX_CAPACITY),
             'tank_id' => $column::integer()->notNull()->reference(new ForeignKey(
                 foreignTableName: 'tank',
                 foreignColumnNames: ['id'],
