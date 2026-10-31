@@ -1,0 +1,5 @@
+# PhpStorm project files live next to backend/, outside backend/.gitignore
+.idea
+
+# Mac
+.DS_Store
